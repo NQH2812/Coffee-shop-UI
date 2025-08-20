@@ -32,6 +32,13 @@ class CustomBottomNavBar extends StatelessWidget {
             activeIcon: Icons.shopping_bag,
             index: 2,
           ),
+
+          //test
+          _buildNavItem(
+            icon: Icons.person_outline,
+            activeIcon: Icons.person,
+            index: 3,
+          ),
         ],
       ),
     );

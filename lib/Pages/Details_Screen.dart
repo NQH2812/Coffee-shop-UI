@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/product.dart';
+import '../model/modeltest.dart';
+import '../components/favorites_button.dart';
 
 class Details_Screen extends StatefulWidget {
   final Product product;
@@ -55,7 +56,7 @@ class _Details_ScreenState extends State<Details_Screen> {
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.asset(
+                        child: Image.network(
                           widget.product.imageUrl,
                           fit: BoxFit.cover,
                         ),
@@ -80,23 +81,7 @@ class _Details_ScreenState extends State<Details_Screen> {
                             ),
                           ),
                           // Favorite button
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                isFavorite ? Icons.favorite : Icons.favorite_outline_sharp,
-                                color: Color(0xFFBF6A02),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  isFavorite = !isFavorite;
-                                });
-                              },
-                            ),
-                          ),
+                          FavoritesButton(product: widget.product),
                         ],
                       ),
                     ),
@@ -106,7 +91,14 @@ class _Details_ScreenState extends State<Details_Screen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(widget.product.name, style: GoogleFonts.outfit(fontSize: 35, fontWeight: FontWeight.bold,)),
+                    Expanded(
+                      child: Text(
+                          widget.product.name, 
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.outfit(fontSize: 35, fontWeight: FontWeight.bold,)
+                      ),
+                    ),
                     Container(
                       width: 60,
                       height: 30,

@@ -1,22 +1,23 @@
-import 'package:coffee_shop/model/product.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/cart.dart';
+import 'package:coffee_shop/model/modeltest.dart';
 
-class Homepage_screen extends StatefulWidget {
-  const Homepage_screen({super.key});
+class Home_Screen extends StatefulWidget {
+  const Home_Screen({super.key});
 
   @override
-  State<Homepage_screen> createState() => _Homepage_screenState();
+  State<Home_Screen> createState() => _Home_ScreenState();
 }
 
-class _Homepage_screenState extends State<Homepage_screen> {
+class _Home_ScreenState extends State<Home_Screen> {
 
-  final List<String> categories = ['Cappuccino', 'Tea', 'Bread', 'Juice', 'Milk', 'Latte', 'Espresso', 'Cold Brew'];
+  final List<String> categories = ['Cappuccino', 'Tea', 'Bread', 'Vietnamese Coffee', 'Milk', 'Latte', 'Espresso', 'Cold Brew'];
   int currentIndex = 0; 
   int selectedCategoryIndex = 0;
 
-  final PageController _controller = PageController(viewportFraction: 0.6, initialPage: 5);
+  final PageController _controller = PageController(viewportFraction: 0.6, initialPage: 0);
 
 
   @override
@@ -47,6 +48,7 @@ class _Homepage_screenState extends State<Homepage_screen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
@@ -145,32 +147,50 @@ class _Homepage_screenState extends State<Homepage_screen> {
                     ),
                   ),
                   Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        height: 500,
-                        child: PageView.builder(
-                          itemCount: 10,
-                          controller: _controller,
-                          itemBuilder: (context, index) {
-                            return ListenableBuilder(
-                              listenable: _controller,
-                              builder: (context, child) {
-                                double factor = 1;
-                                if (_controller.position.hasContentDimensions) {
-                                  factor = 1 - (_controller.page! - index).abs();
-                                }
-                                return Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 20),
-                                  child: Transform.scale(
-                                    scale: 0.8 + (factor * 0.2),
-                                    child: CartWidget(product: demoProducts[0],),
-                                  ),
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                        .collection('products')
+                        .where('categories', isEqualTo: categories[selectedCategoryIndex])
+                        .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return const Center(child: Text('Product not available'));
+                        }
+                        final products = snapshot.data!.docs
+                          .map((doc) => Product.fromFirestore(doc))
+                          .toList();
+
+                        return Center(
+                          child: SizedBox(
+                            height: 500,
+                            child: PageView.builder(
+                              itemCount: products.length,
+                              controller: _controller,
+                              itemBuilder: (context, index) {
+                                return ListenableBuilder(
+                                  listenable: _controller,
+                                  builder: (context, child) {
+                                    double factor = 1;
+                                    if (_controller.position.hasContentDimensions) {
+                                      factor = 1 - (_controller.page! - index).abs();
+                                    }
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 20),
+                                      child: Transform.scale(
+                                        scale: 0.8 + (factor * 0.2),
+                                        child: CartWidget(product: products[index]),
+                                      ),
+                                    );
+                                  },
                                 );
                               },
-                            );
-                          },
-                        ),
-                      ),
+                            ),
+                          ),
+                        );
+                      }
                     ),
                   ),
                 ],
