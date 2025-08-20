@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:coffee_shop/service/addproduct.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/favotitesCart.dart';
-import '../model/modeltest.dart';
+import '../model/Product.dart';
 
 class FavoritesPage extends StatelessWidget {
   @override
@@ -33,10 +32,10 @@ class FavoritesPage extends StatelessWidget {
             child: GridView.builder( 
               itemCount: products.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // ← 2 sản phẩm mỗi dòng
-                  crossAxisSpacing: 12, // ← khoảng cách giữa các cột
-                  mainAxisSpacing: 12,  // ← khoảng cách giữa các dòng
-                  childAspectRatio: 3/4, // ← điều chỉnh tỷ lệ khung hiển thị
+                  crossAxisCount: 2, 
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 3/4,
                 ),
               itemBuilder: (context, index) {
                 final product = products[index];

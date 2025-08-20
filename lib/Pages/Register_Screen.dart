@@ -15,7 +15,6 @@ class Register_Screen extends StatefulWidget {
 class _Register_ScreenState extends State<Register_Screen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -97,26 +96,6 @@ class _Register_ScreenState extends State<Register_Screen> {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Container(
-                //    width: MediaQuery.of(context).size.width * 0.8,
-                //   child: TextField(
-                //     style: GoogleFonts.outfit(color: Color(0xFFBF6A02), fontSize: 16),
-                //     decoration: InputDecoration(
-                //       filled: true,
-                //       fillColor: Colors.white,
-                //       hintText: 'Confirm Password',
-                //       hintStyle: GoogleFonts.outfit(color: Colors.grey.shade600),
-                //       border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.circular(50),
-                //         borderSide: BorderSide.none,
-                //       ),
-                //     ),
-                //     controller: _confirmPasswordController,
-                //     keyboardType: TextInputType.visiblePassword,
-                //     textInputAction: TextInputAction.done,
-                //   ),
-                // ),
-                // SizedBox(height: 20),
                 GestureDetector( 
                   onTap: () async {
                     await AuthService().signup(

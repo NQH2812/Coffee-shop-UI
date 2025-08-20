@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/favorites_button.dart';
-import '../model/modeltest.dart';
+import '../model/Product.dart';
 import '../Pages/Details_Screen.dart';
 
 class Favotitescart extends StatelessWidget {

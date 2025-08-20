@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/product.dart';
+import '../model/productest.dart';
 
 class Savedcart extends StatefulWidget {
   final Product product;

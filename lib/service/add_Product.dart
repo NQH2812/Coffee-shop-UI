@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../model/modeltest.dart';
+import '../model/Product.dart';
 
   final List<Product> product = [
     Product(

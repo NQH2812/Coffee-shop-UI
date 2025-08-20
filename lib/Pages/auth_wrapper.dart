@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Pages/Signin_Screen.dart';
 import 'loading_Screen.dart';
-import '../Pages/mainScreen.dart'; // Import MainScreen của bạn
+import '../Pages/mainScreen.dart'; 
 
 class AuthWrapper extends StatelessWidget {
   @override

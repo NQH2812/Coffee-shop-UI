@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/cart.dart';
-import 'package:coffee_shop/model/modeltest.dart';
+import 'package:coffee_shop/model/Product.dart';
 
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});

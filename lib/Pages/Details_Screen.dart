@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/modeltest.dart';
+import '../model/Product.dart';
 import '../components/favorites_button.dart';
 
 class Details_Screen extends StatefulWidget {
